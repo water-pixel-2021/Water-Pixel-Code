@@ -36,8 +36,8 @@ from skimage.morphology import watershed
 from Gradient import Gradient
 from DistanceMap import *
 from Markers import *
-from scipy.ndimage import imread
-import matplotlib.pyplot as plt
+from imageio import imread
+
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -74,6 +74,8 @@ m_markers = args.m_markers
 
 if secure_dist is not None:
     secure_dist = int(secure_dist)
+else:
+    secure_dist = 2
 if secure_dist > 2:
     secure_dist = 2
     logging.warning('secure distance must not be higher than 2, set to 2 by default')

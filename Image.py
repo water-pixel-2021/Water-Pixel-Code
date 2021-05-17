@@ -29,9 +29,9 @@ import os
 
 import nibabel
 import numpy as np
-from scipy.misc import imsave
-
-from scipy.ndimage import imread
+from imageio import imsave
+from imageio import imread
+#alternative : matplot.image.imread
 
 
 def save_as_nifti(img, filename, header):
@@ -97,7 +97,7 @@ class Image:
             img = nibabel.load(self.path)
             image = np.array(img.dataobj)
         elif self.path.endswith('png') or self.path.endswith('jpg') or self.path.endswith('jpeg'):
-            image = imread(self.path, mode='F')
+            image = imread(self.path, pilmode='F')
             img = None
         return image, img
 
