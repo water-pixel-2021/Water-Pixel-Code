@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 
 """
@@ -186,7 +185,7 @@ class DistanceMap:
         x = regionprops(markers_map.astype('uint16'))
         liste = np.zeros(len(x), dtype=(int, 2))
         for i in range(0, len(x)):
-            liste[i] = x[i].centroid
+            liste[i] = [ x[i].centroid[0], x[i].centroid[1] ]##Bug2
 
         # A reshape might be necessary to compute the distance map
 
