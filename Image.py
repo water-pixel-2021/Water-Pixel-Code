@@ -31,7 +31,8 @@ import nibabel
 import numpy as np
 from imageio import imsave
 from imageio import imread
-#alternative : matplot.image.imread
+#from matplotlib.pyplot import imread
+
 
 
 def save_as_nifti(img, filename, header):
@@ -98,7 +99,14 @@ class Image:
             image = np.array(img.dataobj)
         elif self.path.endswith('png') or self.path.endswith('jpg') or self.path.endswith('jpeg'):
             image = imread(self.path, pilmode='F')
+            resX=image.shape[0]%5
+            resY=image.shape[1]%5
+            image = image[:image.shape[0]-resX,:image.shape[1]-resY]
             img = None
+
+            #image = imread(self.path)
+            #image = np.array(image)
+
         return image, img
 
 
