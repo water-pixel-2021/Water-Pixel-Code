@@ -26,7 +26,7 @@ holders for any other use.
 import numpy as np
 
 
-def plot_2d_contours(image, res):
+def plot_2d_contours(image, res,color):
 
     from skimage.measure import regionprops
     zero_pad = np.pad(res, 1, 'constant')
@@ -40,7 +40,7 @@ def plot_2d_contours(image, res):
                 label['_label_image'][tuple(coords)] == label["_label_image"][coords[0], coords[1] - 1],
                 label['_label_image'][tuple(coords)] == label["_label_image"][coords[0], coords[1] + 1]) != \
                     (True, True, True, True):
-                image_copy[coords[0] - 1, coords[1] - 1, :] = 0
+                image_copy[coords[0] - 1, coords[1] - 1, :] = color
 
     import matplotlib.pyplot as plt
     plt.figure(1)
@@ -48,6 +48,8 @@ def plot_2d_contours(image, res):
     plt.title('Super segmented image')
     plt.show()
     return image_copy
+
+
 
 def plot_3d_contours(image, res):
 

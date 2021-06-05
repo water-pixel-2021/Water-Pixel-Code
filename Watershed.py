@@ -37,7 +37,7 @@ from Gradient import Gradient
 from DistanceMap import *
 from Markers import *
 from imageio import imread
-
+import matplotlib.pyplot as plt
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -86,8 +86,11 @@ image, imgobj = img.get_image()
 
 # We get the normalized gradient norm
 grad_norm = getattr(Gradient(image, numb), gradient)() #eval(f'Gradient(image, {numb}).{gradient}()')
+plt.figure(1)
+plt.imshow(grad_norm)
+plt.title('Gradient')
+plt.show()
 
-# We get the normalized gradient norm
 if distance > min(image.shape):
     distance = min(image.shape)
     logging.warning('Distance parameter has been changed to %s', distance)
@@ -97,11 +100,8 @@ else:
     # For 2D images
     distance_map = DistanceMap(image.shape, distance).get_2d_dist_map(distance_type)
 normalized_distance_map = normalize_dist_map(distance_map)
-
 # Linear combination
-
 comb = alpha * grad_norm + (1 - alpha) * normalized_distance_map
-
 # Markers map computation
 if secure_dist is not None:
     markers_map = Markers(grad_norm, distance).get_markers(secure_dist)
@@ -144,9 +144,20 @@ logging.warning('Labels reorganized successfully')
 
 # Store the result in a nifti file
 if imgobj is None:
-    res = plot_2d_contours(imread(path), labels)
+    #res = plot_2d_contours(imread(path), labels)
+    image_cp = imread(path)
+    resX=image_cp.shape[0]%5
+    resY=image_cp.shape[1]%5
+    image_cp = image_cp[:image_cp.shape[0]-resX,:image_cp.shape[1]-resY]
+    res = plot_2d_contours(image_cp, labels, 255)
+    
+    
     if res_name is not None:
         save_as_jpeg(res, res_name)
+        if image_cp.shape[0]==320 and image_cp.shape[1]==480:
+            blank=imread("./Images/2D/contours.png")
+            resContours = plot_2d_contours(blank, labels, 0)
+            save_as_jpeg(resContours, res_name+"contours.png")
 else:
     plot_3d_contours(image, reorganized_labels)
     if res_name is not None:

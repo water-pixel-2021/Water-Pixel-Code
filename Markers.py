@@ -53,9 +53,9 @@ class Markers:
 
         # Number of segments in the image in each direction :
 
-        nb_segment_x = int(np.ceil(image_size_x / self.distance))
-        nb_segment_y = int(np.ceil(image_size_y / self.distance))
-        nb_segment_z = int(np.ceil(image_size_z / self.distance))
+        nb_segment_x = int( np.ceil(image_size_x / self.distance) )
+        nb_segment_y = int( np.ceil(image_size_y / self.distance) )
+        nb_segment_z = int( np.ceil(image_size_z / self.distance) )
 
         # Lef limit of parallelepiped:
 

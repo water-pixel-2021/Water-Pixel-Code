@@ -99,9 +99,13 @@ class Image:
             image = np.array(img.dataobj)
         elif self.path.endswith('png') or self.path.endswith('jpg') or self.path.endswith('jpeg'):
             image = imread(self.path, pilmode='F')
+            ##Bug1
             resX=image.shape[0]%5
             resY=image.shape[1]%5
+            #resX=0
+            #resY=0
             image = image[:image.shape[0]-resX,:image.shape[1]-resY]
+            
             img = None
 
             #image = imread(self.path)
