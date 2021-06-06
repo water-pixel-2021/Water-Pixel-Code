@@ -14,22 +14,4 @@ pip install -r requirements.txt
 
 ## Running the code
 
-```
-python3 Watershed.py -p "image/path/"
-```
-
-All optionnal arguments can be seen using command
-
-```
-python3 Watershed.py --help
-```
-
-Example:
-
-```
-python3 Watershed.py -p "/home/user/image.nii.gz" -d 9 -a 0.7 -rn "result" -se 3
-```
-
-You can try to run on Images folder test images with all the dafault parameters and compare with the result you should obtain which is stored in the same directory.
-
-
+Watershed.py -p fig1 -d 25 -a 0.059 -sd 1 -rn fig1a -mm True -se 3

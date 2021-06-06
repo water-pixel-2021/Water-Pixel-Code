@@ -1,3 +1,7 @@
+#
+#E4FI AJOUT pour faire un preprocessing des images dont on a besoin dans "analysisQualitativeRun.py"
+#
+
 from skimage.morphology import area_opening
 from skimage.morphology import area_closing
 

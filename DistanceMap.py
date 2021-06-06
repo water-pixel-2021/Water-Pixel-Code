@@ -184,9 +184,16 @@ class DistanceMap:
         from skimage.measure import regionprops
         x = regionprops(markers_map.astype('uint16'))
         liste = np.zeros(len(x), dtype=(int, 2))
-        for i in range(0, len(x)):
-            liste[i] = [ x[i].centroid[0], x[i].centroid[1] ]##Bug2
 
+        for i in range(0, len(x)):
+            #E4FI AJOUT pour corriger le bug qu'il y avait
+            # pour reproduire l'erreur:
+            #décommenter liste[i]=x[i].centroid
+            # =>erreur could not broadcast input array from shape(3,) into shape (2,)
+            # liste shape (...,2) et centroid (x,y,z)
+            #liste[i] = x[i].centroid
+            liste[i] = [ x[i].centroid[0], x[i].centroid[1] ]
+            
         # A reshape might be necessary to compute the distance map
 
         shape_0, shape_1 = self.shape

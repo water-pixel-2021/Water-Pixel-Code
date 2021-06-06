@@ -36,9 +36,16 @@ from skimage.morphology import watershed
 from Gradient import Gradient
 from DistanceMap import *
 from Markers import *
+
+#E4FI AJOUT car scipy.misc imsave et imread sont périmés
+#from scipy.misc import imsave
+#from scipy.ndimage import imread
 from imageio import imread
+from imageio import imsave
+
 import matplotlib.pyplot as plt
 import argparse
+import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-p", "--path", type=str, help="Path of the image to be processed")
@@ -84,8 +91,13 @@ if secure_dist > 2:
 img = Image(path=path)
 image, imgobj = img.get_image()
 
+
+#E4FI AJOUT pour timer le process
+cptF0=time.perf_counter()
 # We get the normalized gradient norm
 grad_norm = getattr(Gradient(image, numb), gradient)() #eval(f'Gradient(image, {numb}).{gradient}()')
+#E4FI AJOUT pour plot gradient
+save_as_jpeg(grad_norm, res_name+"grad")
 plt.figure(1)
 plt.imshow(grad_norm)
 plt.title('Gradient')
@@ -124,7 +136,9 @@ if len(image.shape) == 3:
 else:
     # For 2D images
     labels = watershed(comb, markers_map[:, :, 0])
-
+#E4FI AJOUT pour timer le process
+cptF1=time.perf_counter()
+print ( "Timing fait pour le projet d'E4FI", cptF1-cptF0)
 # Disordered reorganization of the labels to facilitate visualisation:
 
 labels_list = np.arange(np.amin(labels), np.amax(labels) + 1)
@@ -144,6 +158,9 @@ logging.warning('Labels reorganized successfully')
 
 # Store the result in a nifti file
 if imgobj is None:
+    
+
+    #E4FI AJOUT meme ajout que dans Image.get_image pour régler le bug
     #res = plot_2d_contours(imread(path), labels)
     image_cp = imread(path)
     resX=image_cp.shape[0]%5
@@ -155,9 +172,10 @@ if imgobj is None:
     if res_name is not None:
         save_as_jpeg(res, res_name)
         if image_cp.shape[0]==320 and image_cp.shape[1]==480:
+            #E4FI AJOUT pour save les contours
             blank=imread("./Images/2D/contours.png")
-            resContours = plot_2d_contours(blank, labels, 0)
-            save_as_jpeg(resContours, res_name+"contours.png")
+            resContours = plot_2d_contours(blank, labels, 255)
+            save_as_jpeg(resContours, res_name+"contours")
 else:
     plot_3d_contours(image, reorganized_labels)
     if res_name is not None:

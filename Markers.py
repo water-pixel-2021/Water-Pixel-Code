@@ -83,8 +83,8 @@ class Markers:
                             thumbnail = self.image[x_left_lim + secure_dist:(x_left_lim + self.distance) - secure_dist,
                                                    y_left_lim + secure_dist:(y_left_lim + self.distance) - secure_dist,
                                                    z_left_lim]
-                                                   # [ 533 : 538, 2:7 , 0 ]
-                                                   #(533,800,1)
+                                                   # sliced [ 533 : 538, 2:7 , 0 ]
+                                                   # shape (533,800,1)
                         else:
                             thumbnail = self.image[x_left_lim + secure_dist:(x_left_lim + self.distance) - secure_dist,
                                                    y_left_lim + secure_dist:(y_left_lim + self.distance) - secure_dist,
