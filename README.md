@@ -1,5 +1,9 @@
 # Water Pixels 
 
+LIM Françoise
+PANGRACOVA Adriana
+PRIMAULT Alexandre
+
 ## Contenu du dépot 
 
 Ce dépôt contient le code sources avec quelques modifications et des scripts permettant d'exécuter les expériences contenues dans notre rapport. 
